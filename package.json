@@ -1,0 +1,19 @@
+{
+  "name": "jormungand",
+  "version": "1.0.0",
+  "description": "// 1ere étape créer une grille de 50 cases par 50 cases sur la balise canvas à l'aide d'une fonction: \r //",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adrian-Larenaudie/Jormungand.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adrian-Larenaudie/Jormungand/issues"
+  },
+  "homepage": "https://github.com/Adrian-Larenaudie/Jormungand#readme"
+}

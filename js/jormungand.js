@@ -1,5 +1,10 @@
+//? La fonction principale du jeu:
 
-var canvas = document.querySelector('canvas');
-var ctx = canvas.getContext('2d');
-ctx.fillStyle = 'green';
-ctx.fillRect(10, 10, 100, 100);
+import { make_grid } from './utils/make_grid.js';
+
+const jormungand = () => {
+    console.log('hello world');
+    make_grid();
+};
+
+jormungand();
