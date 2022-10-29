@@ -12,6 +12,8 @@
 - DOC = il s'agit de documentation
 - CHANGE = des changements ont étés effectués  
 - RENAME = fichier ou fonction qui a ou ont été rénomés 
+- MERGE = fusion de fichier ou fonction
+- SPLIT = séparation de fichier ou fonction
 
 Les mots clefs sont suivit du fichier/fonction/méthode qui a subit des modifications.  
 Puis un message facultatif peut être ajouté en troisème éléments on écrit msg: suivit du commentaire.  

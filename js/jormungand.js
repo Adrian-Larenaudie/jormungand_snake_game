@@ -1,6 +1,6 @@
 //? La fonction principale du jeu:
 
-import { draw_grid } from './utils/make_grid.js';
+import { draw_grid } from './utils/draw_grid.js';
 
 const jormungand = () => {
     console.log('hello world');
