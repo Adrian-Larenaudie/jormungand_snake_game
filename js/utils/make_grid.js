@@ -1,5 +1,5 @@
 // Appeler cette fonction permet de créer une grille dans la balise <canvas> du fichier index.html lié
-export const make_grid = () => {
+export const draw_grid = () => {
     // nombre de case horizontale
     const x_boxes_numbers = 27;
     // nombre de case verticale
