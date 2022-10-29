@@ -52,28 +52,33 @@ export const snake = {
                 case 'right':
                     if(snake.head.position.x < 1107 - 41) {
                         snake.head.position.x+= 41;
-                        snake.draw_head();
+                    } else {
+                        snake.head.position.x = 1; 
                     }
                     break;
                 case 'left':
                     if(snake.head.position.x > 41) {
                         snake.head.position.x-= 41;
-                        snake.draw_head();
+                    } else {
+                        snake.head.position.x = 1108; 
                     }
                     break;
                 case 'top':
                     if(snake.head.position.y > 41) {
                         snake.head.position.y-= 41;
-                        snake.draw_head();
+                    } else {
+                        snake.head.position.y = 698;
                     }
                     break;
                 case 'bottom':
                     if(snake.head.position.y < 697 - 41) {
                         snake.head.position.y+= 41;
-                        snake.draw_head();
+                    } else {
+                        snake.head.position.y = 1;
                     }
                     break;
-            };       
+            };  
+            snake.draw_head();     
         }, snake.mouvement_speed);
 
       /*  setTimeout(() => {
@@ -107,6 +112,10 @@ export const snake = {
     // x ne peut pas être inférieur à 1 et il ne peut pas être supérieur à 1107
     // y ne peut pas être inférieur à 1 également et il ne peut pas être supérieur à 697
     // ces valeurs ne sont pas prise au hasard puisqu'il s'agit tout simplement des dimensions du canvas + ou - 1 pour respecter les bordures
+    // si on entre dans le cas ou le serpent arrive sur une bordure il sera stoppé
+    //? le comportement que l'ont souhaite c'est que le serpent se retrouve de l'autre coté du canvas dans le cas ou il arrive sur une bordure
+    // on va donc ajouter un else qui nous permet de dire si tu arrives en bordure tu prend pour coordonée celle de la case opposée
+
 
 //! CHANGER LA DIRECTION
     //? pour changer la direction on va demander à l'utilisateur d'appuyer sur une touche directionnelle

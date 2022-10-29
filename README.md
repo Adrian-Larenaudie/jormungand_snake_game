@@ -16,4 +16,4 @@
 **3eme étapes = crée le corps du serpent:** WIP
 - créer un corps au serpent, il sera par défaut initier avec 3 cases considérées comme son body + sa tête pour un total de 4 cases en début de partie
 - les cases body doivent se suivre lors des déplacements de la tête
-- il n'ai désormais plus possible d'être bloqué par une bordure à la place la tête doit se retrouver de l'autre coté de la grille
+- il n'ai désormais plus possible d'être bloqué par une bordure à la place la tête doit se retrouver de l'autre coté de la grille ok
