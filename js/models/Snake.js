@@ -1,11 +1,14 @@
-//* définition d'une classe pour gérer notre serpênt
+//* on a besoin des informations concernant les dimension de la grille
+import { grid } from './grid.js';
+
+//* définition d'une classe pour gérer notre serpent
 export class Snake {
     //* les coordonnées de chaque parties du corps du serpent dans un tableau l'index 0 représente la tête
     body_cordinates = [ {x: 165, y: 42}, {x: 124, y: 42}, {x: 83, y: 42}, {x: 42, y: 42} ];
     //* couleurs tête et parties du corps
     colors = {head: "#00561B", body: "#096a09"};
     //* la taille d'une partie du corps
-    body_size = 40;
+    body_size = grid.size;
     //* la valeur de la direction du serpent par défaut vers la droite
     direction = "right";
     //* sa vitesse de déplacement en millisecondes
