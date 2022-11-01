@@ -20,6 +20,6 @@
 
 **4eme étapes = les pommes:** WIP
 - faire apparaitre une pomme à un emplacement aléatoire de la grille au bout de 2000 milliseconde après le début de la partie ok
-- la pomme ne doit pas apparaitre sur le serpent
+- la pomme ne doit pas apparaitre sur le serpent ok
 - la pomme est mangée par le serpent si sa tête arrive sur la case de la pomme ok
-- une fois qu'une pomme est mangée le serpent grandit d'une case 
+- une fois qu'une pomme est mangée le serpent grandit d'une case ok

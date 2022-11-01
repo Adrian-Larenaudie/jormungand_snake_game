@@ -1,3 +1,5 @@
+import { jormungand } from "../jormungand.js";
+
 export const apple = {
     size: 40,
     color: "#dc143c",
@@ -17,12 +19,24 @@ export const apple = {
         //* on va d'abord devoir générer un tableau avec toute les positions de départ possible sur l'axe des x horizontal
         let x_positions = [];
         for (let index = 0; index < apple.x_case_number; index++) {
-            x_positions.push(apple.border + index + (index * apple.size));      
+            const position = apple.border + index + (index * apple.size)
+            //* pour empêcher la pomme de poper sur le serpent on vérifie si la position courante est présente dans l'instance du serpent: jormungand
+            jormungand.body_cordinates.forEach(body_position => {
+                if(body_position.x !== position) {
+                    x_positions.push(position);     
+                }
+            });   
         }
         //* puis on va faire la même chose pour l'axe des y vertical
         let y_positions = [];
         for (let index = 0; index < apple.y_case_number; index++) {
-            y_positions.push(apple.border + index + (index * apple.size));      
+            const position = apple.border + index + (index * apple.size)
+            //* pour empêcher la pomme de poper sur le serpent on vérifie si la position courante est présente dans l'instance du serpent: jormungand
+            jormungand.body_cordinates.forEach(body_position => {
+                if(body_position.y !== position) {
+                    y_positions.push(position);     
+                }
+            });     
         }
         //* ensuite on va piocher aléatoirement une valeur dans chacun des tableau
         apple.position.x = x_positions[Math.floor(Math.random()*x_positions.length)];

@@ -4,7 +4,7 @@ import { apple } from './utils/apple.js';
 
 //* tous d'abord on instancie notre serpent
 //* petite référence à la mtythologie scandinave <3
-const jormungand = new Snake
+export const jormungand = new Snake
 
 const game = {
 
