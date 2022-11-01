@@ -18,12 +18,8 @@ const game = {
         game.user_input();
         // le serpent commence à se déplacer :)
         game.on_move();
-        // au bout de 2 secondes de jeu une pomme apparait
-        setTimeout(() => {
-            apple.get_random_position();
-        }, 2000);
-       
-
+        // on veut une pomme
+        apple.get(1000);       
     },
 
     //* méthode pour gérer les évènements sur les touche ZQSD et modifier la valeur de la direction du serpent
@@ -87,6 +83,15 @@ const game = {
                     }
                     break;
             };
+
+            //* si la tête du serpent arrive sur la position de la pomme 
+            if(jormungand.body_cordinates[0].y === apple.position.y && jormungand.body_cordinates[0].x === apple.position.x) {
+                console.log("miam miam");
+                apple.position.x = null;
+                apple.position.y = null;
+                console.log(apple.position);
+                apple.get(500)
+            }
 
             //* on met à jour les positions de chaque parties du corps
             jormungand.update_cordinates(last_head_position);
