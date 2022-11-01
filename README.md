@@ -19,6 +19,6 @@
 - il n'ai désormais plus possible d'être bloqué par une bordure à la place la tête doit se retrouver de l'autre coté de la grille ok
 
 **4eme étapes = les pommes:** WIP
-- faire apparaitre une pomme à un emplacement aléatoire de la grille au bout de 2000 milliseconde après le début de la partie
+- faire apparaitre une pomme à un emplacement aléatoire de la grille au bout de 2000 milliseconde après le début de la partie ok
 - la pomme ne doit pas apparaitre sur le serpent
 - la pomme est mangée par le serpent si sa tête arrive sur la case de la pomme

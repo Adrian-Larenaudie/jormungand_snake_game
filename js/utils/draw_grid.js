@@ -1,9 +1,9 @@
 // Appeler cette fonction permet de créer une grille dans la balise <canvas> du fichier index.html lié
 export const draw_grid = () => {
     // nombre de case horizontale
-    const x_boxes_numbers = 27;
+    const x_boxe_number = 27;
     // nombre de case verticale
-    const y_boxes_numbers = 17;
+    const y_boxe_number = 17;
     // taille des cases en pixels (carrées)
     const boxe_size = 40;
     // balise canvas
@@ -15,9 +15,9 @@ export const draw_grid = () => {
     // couleur de nos cases (bleue ocean #000080)
     ctx.fillStyle = '#000080';
     // une itération pour chaque lignes de la grille
-    for(let y = 0; y < y_boxes_numbers ; y++) {
+    for(let y = 0; y < y_boxe_number ; y++) {
         // puis une itération pour afficher toutes les cases sur la ligne courante 
-        for(let x = 0; x < x_boxes_numbers; x++) {
+        for(let x = 0; x < x_boxe_number; x++) {
         // la méthode .fillRect() prend 4 paramètres:
             //? - le 1er: définit le début de la case sur l'axe horizontal
             //? - le 2eme: définit le début de la case sur l'axe vertical

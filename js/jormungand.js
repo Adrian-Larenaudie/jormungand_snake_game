@@ -1,5 +1,6 @@
 import { draw_grid } from './utils/draw_grid.js';
 import { Snake } from './models/Snake.js';
+import { apple } from './utils/apple.js';
 
 //* tous d'abord on instancie notre serpent
 //* petite référence à la mtythologie scandinave <3
@@ -17,6 +18,11 @@ const game = {
         game.user_input();
         // le serpent commence à se déplacer :)
         game.on_move();
+        // au bout de 2 secondes de jeu une pomme apparait
+        setTimeout(() => {
+            apple.get_random_position();
+        }, 2000);
+       
 
     },
 
@@ -84,8 +90,9 @@ const game = {
 
             //* on met à jour les positions de chaque parties du corps
             jormungand.update_cordinates(last_head_position);
-            //* on redessine tout (grille puis serpent)
+            //* on redessine tout (grille, serpent et pomme)
             draw_grid();
+            apple.draw();
             jormungand.draw();  
  
         }, jormungand.mouvement_speed);
