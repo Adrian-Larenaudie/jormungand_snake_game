@@ -1,5 +1,5 @@
 //* on a besoin des informations concernant les dimension de la grille
-import { grid } from './grid.js';
+import { grid } from '../utils/grid.js';
 
 //* définition d'une classe pour gérer notre serpent
 export class Snake {

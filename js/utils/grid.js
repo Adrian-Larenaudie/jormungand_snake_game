@@ -11,7 +11,6 @@ export const grid = {
 
     //* cette méthoden nous permet de dessiner la grille
     draw: () => {
-        console.log(grid.border);
         //* balise canvas
         const canvas = document.querySelector('canvas');
         //* on donne un context au canvas, (le jeu sera en 2d)
