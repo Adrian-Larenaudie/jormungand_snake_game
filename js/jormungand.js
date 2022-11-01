@@ -90,7 +90,8 @@ const game = {
                 apple.position.x = null;
                 apple.position.y = null;
                 console.log(apple.position);
-                apple.get(500)
+                apple.get(500);
+                jormungand.body_cordinates.push(JSON.parse(JSON.stringify([...jormungand.body_cordinates.slice()]))[0]);
             }
 
             //* on met à jour les positions de chaque parties du corps
