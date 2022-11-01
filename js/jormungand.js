@@ -2,22 +2,28 @@ import { draw_grid } from './utils/draw_grid.js';
 import { Snake } from './models/Snake.js';
 import { apple } from './utils/apple.js';
 
-//* tous d'abord on instancie notre serpent
-//* petite référence à la mtythologie scandinave <3
-export const jormungand = new Snake
-
-const game = {
+export const game = {
+    
+    //* la propriété qui définit la fin de la partie
+    over: false,
+    //* la propriété qui va accueillir notre serpent
+    jormungand: null,
+    interval: null,
 
     //* pour initier la partie
     init: () => {
+        alert("Commencer la partie")
+        //* tous d'abord on instancie notre serpent
+        //* petite référence à la mtythologie scandinave <3
+        game.jormungand = new Snake;
         // on dessine la grille
         draw_grid();  
         // on dessine le serpent
-        jormungand.draw();  
+        game.jormungand.draw();  
         // on active les touches directionnelles ZQSD
         game.user_input();
         // le serpent commence à se déplacer :)
-        game.on_move();
+        game.interval = setInterval(game.on_move, game.jormungand.mouvement_speed);
         // on veut une pomme
         apple.get(1000);       
     },
@@ -27,82 +33,102 @@ const game = {
         document.addEventListener('keypress', (event) => {
             switch (event.key) {
                 case "z":
-                    jormungand.direction = "top";
+                    if(game.jormungand.direction != "bottom") {
+                        game.jormungand.direction = "top";
+                    }
                     break;
                 case "q":
-                    jormungand.direction =  "left";
+                    if(game.jormungand.direction != "right") {
+                        game.jormungand.direction =  "left";
+                    }
                     break;
                 case "s":
-                    jormungand.direction =  "bottom";
+                    if(game.jormungand.direction != "top") {
+                        game.jormungand.direction =  "bottom";
+                    }
                     break;
                 case "d":
-                    jormungand.direction =  "right";
+                    if(game.jormungand.direction != "left") {
+                        game.jormungand.direction =  "right";
+                    }
                     break;
             };     
         });
     },
    
     //* méthode qui itère selon un interval régulier pour faire avancer le serpent
-    on_move: () => { 
+    on_move: () => {       
+        //! js c'est parfois bizarre ici pour évitéer que la variable soit liée aux changement de l'index du tableau:
+        //! une succession de méthode pour le détacher de ce lien
+        const array = JSON.parse(JSON.stringify([...game.jormungand.body_cordinates.slice()]));
+        const last_head_position = array[0];
         
-        setInterval(() => { 
-            //! js c'est parfois bizarre ici pour évitéer que la variable soit liée aux changement de l'index du tableau:
-            //! une succession de méthode pour le détacher de ce lien
-            const array = JSON.parse(JSON.stringify([...jormungand.body_cordinates.slice()]));
-            const last_head_position = array[0];
-            
-            //* le switch permet de modifier la position de la tête selon la valeur de la direction
-            //* on a ensuite des if() qui permettent de gérer l'arriver du snake en bout de grille et le faire réaparaitre de l'autre côté
-            switch (jormungand.direction) {
-                case 'right':
-                    if(jormungand.body_cordinates[0].x < 1107 - 41) {
-                        jormungand.body_cordinates[0].x += 41;
-                    } else {
-                        jormungand.body_cordinates[0].x = 1; 
-                    }
-                    break;
-                case 'left':
-                    if(jormungand.body_cordinates[0].x > 41) {
-                        jormungand.body_cordinates[0].x -= 41;
-                    } else {
-                        jormungand.body_cordinates[0].x = 1108; 
-                    }
-                    break;
-                case 'top':
-                    if(jormungand.body_cordinates[0].y > 41) {
-                        jormungand.body_cordinates[0].y -= 41;
-                    } else {
-                        jormungand.body_cordinates[0].y = 698;
-                    }
-                    break;
-                case 'bottom':
-                    if(jormungand.body_cordinates[0].y < 697 - 41) {
-                        jormungand.body_cordinates[0].y += 41;
-                    } else {
-                        jormungand.body_cordinates[0].y = 1;
-                    }
-                    break;
-            };
+        //* le switch permet de modifier la position de la tête selon la valeur de la direction
+        //* on a ensuite des if() qui permettent de gérer l'arriver du snake en bout de grille et le faire réaparaitre de l'autre côté
+        switch (game.jormungand.direction) {
+            case 'right':
+                if(game.jormungand.body_cordinates[0].x < 1107 - 41) {
+                    game.jormungand.body_cordinates[0].x += 41;
+                } else {
+                    game.jormungand.body_cordinates[0].x = 1; 
+                }
+                break;
+            case 'left':
+                if(game.jormungand.body_cordinates[0].x > 41) {
+                    game.jormungand.body_cordinates[0].x -= 41;
+                } else {
+                    game.jormungand.body_cordinates[0].x = 1108; 
+                }
+                break;
+            case 'top':
+                if(game.jormungand.body_cordinates[0].y > 41) {
+                    game.jormungand.body_cordinates[0].y -= 41;
+                } else {
+                    game.jormungand.body_cordinates[0].y = 698;
+                }
+                break;
+            case 'bottom':
+                if(game.jormungand.body_cordinates[0].y < 697 - 41) {
+                    game.jormungand.body_cordinates[0].y += 41;
+                } else {
+                    game.jormungand.body_cordinates[0].y = 1;
+                }
+                break;
+        };
 
-            //* si la tête du serpent arrive sur la position de la pomme 
-            if(jormungand.body_cordinates[0].y === apple.position.y && jormungand.body_cordinates[0].x === apple.position.x) {
-                console.log("miam miam");
-                apple.position.x = null;
-                apple.position.y = null;
-                console.log(apple.position);
-                apple.get(500);
-                jormungand.body_cordinates.push(JSON.parse(JSON.stringify([...jormungand.body_cordinates.slice()]))[0]);
-            }
+        //* si la tête du serpent arrive sur la position de la pomme 
+        if(game.jormungand.body_cordinates[0].y === apple.position.y && game.jormungand.body_cordinates[0].x === apple.position.x) {
+            apple.position.x = null;
+            apple.position.y = null;
+            apple.get(500);
+            game.jormungand.body_cordinates.push(JSON.parse(JSON.stringify([...game.jormungand.body_cordinates.slice()]))[0]);
+        };
 
-            //* on met à jour les positions de chaque parties du corps
-            jormungand.update_cordinates(last_head_position);
+        //* on met à jour les positions de chaque parties du corps
+        game.jormungand.update_cordinates(last_head_position);
+        game.check_if_bit_himself()
+        if(game.over) {
+            clearInterval(game.interval);
+            alert('Game Over!');
+            game.over = false;
+            game.init();
+        } else {
             //* on redessine tout (grille, serpent et pomme)
             draw_grid();
             apple.draw();
-            jormungand.draw();  
- 
-        }, jormungand.mouvement_speed);
+            game.jormungand.draw();     
+        }
+              
     },
+
+    //* méthode qui vérifie si le serpent se mort la queue
+    check_if_bit_himself: () => {
+        game.jormungand.body_cordinates.forEach((body_part, index) => {
+            if(index != 0 && body_part.x === game.jormungand.body_cordinates[0].x && body_part.y === game.jormungand.body_cordinates[0].y) {
+                game.over = true;
+            }
+        })
+    }
 };
 
 //* LET'S GOO!

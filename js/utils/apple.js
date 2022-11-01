@@ -1,4 +1,4 @@
-import { jormungand } from "../jormungand.js";
+import { game } from "../jormungand.js";
 
 export const apple = {
     size: 40,
@@ -21,7 +21,7 @@ export const apple = {
         for (let index = 0; index < apple.x_case_number; index++) {
             const position = apple.border + index + (index * apple.size)
             //* pour empêcher la pomme de poper sur le serpent on vérifie si la position courante est présente dans l'instance du serpent: jormungand
-            jormungand.body_cordinates.forEach(body_position => {
+            game.jormungand.body_cordinates.forEach(body_position => {
                 if(body_position.x !== position) {
                     x_positions.push(position);     
                 }
@@ -32,7 +32,7 @@ export const apple = {
         for (let index = 0; index < apple.y_case_number; index++) {
             const position = apple.border + index + (index * apple.size)
             //* pour empêcher la pomme de poper sur le serpent on vérifie si la position courante est présente dans l'instance du serpent: jormungand
-            jormungand.body_cordinates.forEach(body_position => {
+            game.jormungand.body_cordinates.forEach(body_position => {
                 if(body_position.y !== position) {
                     y_positions.push(position);     
                 }
