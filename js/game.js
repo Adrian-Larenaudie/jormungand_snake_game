@@ -67,6 +67,7 @@ export const game = {
         //* le switch permet de modifier la position de la tête selon la valeur de la direction
         //* on a ensuite des if() qui permettent de gérer l'arriver du snake en bout de grille et le faire réaparaitre de l'autre côté
         switch (game.jormungand.direction) {
+            //TODO remplacer ses valeurs en dur par des valeurs plus adaptable exemple: (grid.size * grid.x_case_number + x_case_number) - grid.size + grid.border
             case 'right':
                 if(game.jormungand.body_cordinates[0].x < 1107 - 41) {
                     game.jormungand.body_cordinates[0].x += 41;

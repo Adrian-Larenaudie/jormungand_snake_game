@@ -4,7 +4,13 @@ import { grid } from '../utils/grid.js';
 //* définition d'une classe pour gérer notre serpent
 export class Snake {
     //* les coordonnées de chaque parties du corps du serpent dans un tableau l'index 0 représente la tête
-    body_cordinates = [ {x: 165, y: 42}, {x: 124, y: 42}, {x: 83, y: 42}, {x: 42, y: 42} ];
+    body_cordinates = [ 
+        //* pour rendre les coordonnées initial plus facilement modulable simplement en modifiant la taille des case et des bordures
+        {x: (grid.size * 4) + (grid.border * 5), y: (grid.size * 1) + (grid.border * 2)},
+        {x: (grid.size * 3) + (grid.border * 4), y: (grid.size * 1) + (grid.border * 2)},
+        {x: (grid.size * 2) + (grid.border * 3), y: (grid.size * 1) + (grid.border * 2)},
+        {x: (grid.size * 1) + (grid.border * 2), y: (grid.size * 1) + (grid.border * 2)},
+    ];
     //* couleurs tête et parties du corps
     colors = {head: "#00561B", body: "#096a09"};
     //* la taille d'une partie du corps
