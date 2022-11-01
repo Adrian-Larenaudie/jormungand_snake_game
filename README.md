@@ -32,3 +32,14 @@
 **6eme étape = créer une interface de lancement de partie**
 
 **7eme étape = design**
+
+## liste des bugs à gérer:
+1. débordement de une case (le serpent peu se déplacer d'une case invisible autour de la grille)
+2. parfois la pomme apparait devant la tête du serpent (génère une mauvaise expérience de jeu)
+
+## liste des améliorations à apporter:
+1. les cases sont trop grosse les réduires à 30pixels
+2. la grille est un peu grande également modifier la taille 
+3. choisir une option entre autoriser le serpent à passer sur une bordure et se retrouver de l'autre coté sur la grille de jeu ou faire perdre la partie si la tête touche une bordure
+4. améliorer l'interface de lancement et de fin de partie
+5. ajouter le système de scoring affiché en permanence

@@ -2,6 +2,19 @@ body {
     background-color: #1b1b1b;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    width: 80%;
+}
+
+.title, .score {
+    color: white;
+}
+
 canvas {
+    width: 80%;
     background-color: grey;
 }
