@@ -114,7 +114,7 @@ export const game = {
             //! même principe qu'en haut on doit faire une copie et casser le lien qu'il a avec son index parent
             game.jormungand.body_cordinates.push(JSON.parse(JSON.stringify([...game.jormungand.body_cordinates.slice()]))[0]);
             //* on met à jour le score
-            scoring.apples_eaten++;
+            scoring.eaten_apples++;
             scoring.update_score(game.jormungand.body_cordinates);
         };
 

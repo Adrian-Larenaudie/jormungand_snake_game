@@ -1,7 +1,8 @@
 export const scoring = {
     current_score_displayer: document.querySelector('.current_score_value'),
     best_score_displayer: document.querySelector('.best_score_value'),
-    apples_eaten: 0,
+    eaten_apples_displayer: document.querySelector('.eaten_apples_value'),
+    eaten_apples: 0,
     current_score: 0,
 
     init: () => {
@@ -25,12 +26,15 @@ export const scoring = {
             localStorage.setItem("best_score", scoring.current_score);
         }
         scoring.current_score = 0;
+        scoring.eaten_apples = 0;
         scoring.current_score_displayer.textContent = 0;
+        scoring.eaten_apples_displayer.textContent = 0;
     },
 
     //* chaque pomme mangées met à jour le score
     update_score: (array_of_snake_body_part) => {
-        scoring.current_score+= array_of_snake_body_part.length * scoring.apples_eaten;
+        scoring.current_score+= array_of_snake_body_part.length * scoring.eaten_apples;
         scoring.current_score_displayer.textContent = scoring.current_score;
+        scoring.eaten_apples_displayer.textContent = scoring.eaten_apples;
     },
 }
