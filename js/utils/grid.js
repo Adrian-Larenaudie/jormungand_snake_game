@@ -1,11 +1,11 @@
 //* Appeler cette fonction permet de créer une grille dans la balise <canvas> du fichier index.html lié
 export const grid = {
     //* nombre de case horizontale
-    x_case_number: 27,
+    x_case_number: 20,
     //* nombre de case verticale
-    y_case_number: 17,
+    y_case_number: 15,
     //* taille des cases en pixels (carrées)
-    size: 40,
+    size: 30,
     //* bordure en pixels du canvas
     border: 1,
 
@@ -13,6 +13,9 @@ export const grid = {
     draw: () => {
         //* balise canvas
         const canvas = document.querySelector('canvas');
+        //! pour le moment ces deux lignes ne fonctionnent pas il faut donner la valeur de la taille du canvas en dur sur le html
+        //canvas.height = (grid.y_case_number * (grid.size + grid.border)) + grid.border;
+        //canvas.width = (grid.x_case_number * (grid.size + grid.border)) + grid.border;
         //* on donne un context au canvas, (le jeu sera en 2d)
         const ctx = canvas.getContext('2d');
         //* couleur de nos cases (bleue ocean #000080)

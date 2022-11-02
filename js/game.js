@@ -34,6 +34,7 @@ export const game = {
         document.addEventListener('keypress', (event) => {
             switch (event.key) {
                 case "z":
+                    //? empêcher de faire demi tour avec cette condition
                     if(game.jormungand.direction != "bottom") {
                         game.jormungand.direction = "top";
                     }
@@ -67,33 +68,32 @@ export const game = {
         //* le switch permet de modifier la position de la tête selon la valeur de la direction
         //* on a ensuite des if() qui permettent de gérer l'arriver du snake en bout de grille et le faire réaparaitre de l'autre côté
         switch (game.jormungand.direction) {
-            //TODO remplacer ses valeurs en dur par des valeurs plus adaptable exemple: (grid.size * grid.x_case_number + x_case_number) - grid.size + grid.border
             case 'right':
-                if(game.jormungand.body_cordinates[0].x < 1107 - 41) {
-                    game.jormungand.body_cordinates[0].x += 41;
+                if(game.jormungand.body_cordinates[0].x < (grid.size * grid.x_case_number + grid.x_case_number) - (grid.size + grid.border)) {
+                    game.jormungand.body_cordinates[0].x += (grid.size + grid.border);
                 } else {
-                    game.jormungand.body_cordinates[0].x = 1; 
+                    game.jormungand.body_cordinates[0].x = grid.border; 
                 }
                 break;
             case 'left':
-                if(game.jormungand.body_cordinates[0].x > 41) {
-                    game.jormungand.body_cordinates[0].x -= 41;
+                if(game.jormungand.body_cordinates[0].x > (grid.size + grid.border)) {
+                    game.jormungand.body_cordinates[0].x -= (grid.size + grid.border);
                 } else {
-                    game.jormungand.body_cordinates[0].x = 1108; 
+                    game.jormungand.body_cordinates[0].x = (grid.size * grid.x_case_number + grid.x_case_number) + grid.border; 
                 }
                 break;
             case 'top':
-                if(game.jormungand.body_cordinates[0].y > 41) {
-                    game.jormungand.body_cordinates[0].y -= 41;
+                if(game.jormungand.body_cordinates[0].y > (grid.size + grid.border)) {
+                    game.jormungand.body_cordinates[0].y -= (grid.size + grid.border);
                 } else {
-                    game.jormungand.body_cordinates[0].y = 698;
+                    game.jormungand.body_cordinates[0].y = (grid.size * grid.y_case_number + grid.y_case_number) + grid.border;
                 }
                 break;
             case 'bottom':
-                if(game.jormungand.body_cordinates[0].y < 697 - 41) {
-                    game.jormungand.body_cordinates[0].y += 41;
+                if(game.jormungand.body_cordinates[0].y < (grid.size * grid.y_case_number + grid.y_case_number) - (grid.size + grid.border)) {
+                    game.jormungand.body_cordinates[0].y += (grid.size + grid.border);
                 } else {
-                    game.jormungand.body_cordinates[0].y = 1;
+                    game.jormungand.body_cordinates[0].y = grid.border;
                 }
                 break;
         };
