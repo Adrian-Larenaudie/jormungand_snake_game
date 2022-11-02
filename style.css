@@ -17,3 +17,11 @@ main {
 canvas {
     background-color: grey;
 }
+
+.score_tags {
+    display: flex;
+}
+
+p span {
+    padding-right: 3rem;
+}

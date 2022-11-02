@@ -1,6 +1,7 @@
 import { grid } from './utils/grid.js';
 import { Snake } from './models/Snake.js';
 import { apple } from './utils/apple.js';
+import { scoring } from './utils/scoring.js';
 
 export const game = {
     
@@ -13,12 +14,14 @@ export const game = {
 
     //* pour initier la partie
     init: () => {
+        //* on va afficher le meilleure score si il y en a un
+        scoring.init();
+        //* on dessine la grille de jeu
+        grid.draw();  
         //* pour le moment un msg alert pour indiquer que la partie va débuter
         alert("Commencer la partie")
         //* on instancie notre serpent: petite référence à la mtythologie scandinave <3
         game.jormungand = new Snake;
-        //* on dessine la grille de jeu
-        grid.draw();  
         //* on dessine le serpent
         game.jormungand.draw();  
         //* on active les touches directionnelles ZQSD
@@ -69,7 +72,9 @@ export const game = {
         //* on a ensuite des if() qui permettent de gérer l'arriver du snake en bout de grille et le faire réaparaitre de l'autre côté
         switch (game.jormungand.direction) {
             case 'right':
-                if(game.jormungand.body_cordinates[0].x < (grid.size * grid.x_case_number + grid.x_case_number) - (grid.size + grid.border)) {
+                //TODO DESCRIPTION DU CALCULE DES CONDITIONS:
+                //? taile de la grille x le nombre de case + le total des bordures - taille de la grille + bordure
+                if(game.jormungand.body_cordinates[0].x < (grid.size * grid.x_case_number + (grid.x_case_number * grid.border)) - (grid.size + grid.border)) {
                     game.jormungand.body_cordinates[0].x += (grid.size + grid.border);
                 } else {
                     game.jormungand.body_cordinates[0].x = grid.border; 
@@ -79,18 +84,18 @@ export const game = {
                 if(game.jormungand.body_cordinates[0].x > (grid.size + grid.border)) {
                     game.jormungand.body_cordinates[0].x -= (grid.size + grid.border);
                 } else {
-                    game.jormungand.body_cordinates[0].x = (grid.size * grid.x_case_number + grid.x_case_number) + grid.border; 
+                    game.jormungand.body_cordinates[0].x = (grid.size * grid.x_case_number + (grid.x_case_number * grid.border)) + grid.border; 
                 }
                 break;
             case 'top':
                 if(game.jormungand.body_cordinates[0].y > (grid.size + grid.border)) {
                     game.jormungand.body_cordinates[0].y -= (grid.size + grid.border);
                 } else {
-                    game.jormungand.body_cordinates[0].y = (grid.size * grid.y_case_number + grid.y_case_number) + grid.border;
+                    game.jormungand.body_cordinates[0].y = (grid.size * grid.y_case_number + (grid.y_case_number * grid.border)) + grid.border;
                 }
                 break;
             case 'bottom':
-                if(game.jormungand.body_cordinates[0].y < (grid.size * grid.y_case_number + grid.y_case_number) - (grid.size + grid.border)) {
+                if(game.jormungand.body_cordinates[0].y < (grid.size * grid.y_case_number + (grid.y_case_number * grid.border)) - (grid.size + grid.border)) {
                     game.jormungand.body_cordinates[0].y += (grid.size + grid.border);
                 } else {
                     game.jormungand.body_cordinates[0].y = grid.border;
@@ -100,14 +105,17 @@ export const game = {
 
         //* si la tête du serpent arrive sur la position de la pomme il doit la manger
         if(game.jormungand.body_cordinates[0].y === apple.position.y && game.jormungand.body_cordinates[0].x === apple.position.x) {
-            //* la pomme rprend une position null
+            //* la pomme prend une position null
             apple.position.x = null;
             apple.position.y = null;
-            //* on demande une nouvelle pomme qui arrivera dans 500 milliseconde
+            //* on demande une nouvelle pomme qui arrivera dans 500 millisecondes
             apple.get(500);
             //* on fait grandire le serpent d'une case 
             //! même principe qu'en haut on doit faire une copie et casser le lien qu'il a avec son index parent
             game.jormungand.body_cordinates.push(JSON.parse(JSON.stringify([...game.jormungand.body_cordinates.slice()]))[0]);
+            //* on met à jour le score
+            scoring.apples_eaten++;
+            scoring.update_score(game.jormungand.body_cordinates);
         };
 
         //* on met à jour les positions de chaque parties du corps
@@ -120,6 +128,8 @@ export const game = {
         if(game.over) {
             //* si game over on clear l'interval
             clearInterval(game.interval);
+            //* on met à jour le meilleure score dans le local storage
+            scoring.set_best_score();
             //* on previens le joueur
             alert('Game Over!');
             //* on remet la valeur de game.over à false
