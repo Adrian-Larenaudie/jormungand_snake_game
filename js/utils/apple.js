@@ -24,14 +24,16 @@ export const apple = {
     get_random_position: () => {
         //* on va d'abord devoir générer un tableau avec toute les positions de départ possible sur l'axe des x (horizontal)
         let x_positions = [];
+        //* on va avoir besoin de scinder en deux notre tableau de position du snake: un tableau pour les x et un pour les y
+        let x_snake_positions = game.jormungand.body_cordinates.map(position => position.x);
+        let y_snake_positions = game.jormungand.body_cordinates.map(position => position.y);
+
         for (let index = 0; index < apple.x_case_number; index++) {
             const position = apple.border + index + (index * apple.size)
             //* pour empêcher la pomme de poper sur le serpent on vérifie si la position courante est présente dans l'instance du serpent
-            game.jormungand.body_cordinates.forEach(body_position => {
-                if(body_position.x !== position) {
-                    x_positions.push(position);     
-                }
-            });   
+            if(!x_snake_positions.includes(position)) {
+                x_positions.push(position); 
+            }
         }
 
         //* puis on va faire la même chose pour l'axe des y (vertical)
@@ -39,11 +41,9 @@ export const apple = {
         for (let index = 0; index < apple.y_case_number; index++) {
             const position = apple.border + index + (index * apple.size)
             //* pour empêcher la pomme de poper sur le serpent on vérifie si la position courante est présente dans l'instance du serpent
-            game.jormungand.body_cordinates.forEach(body_position => {
-                if(body_position.y !== position) {
-                    y_positions.push(position);     
-                }
-            });     
+            if(!y_snake_positions.includes(position)) {
+                y_positions.push(position); 
+            }
         }
 
         //* ensuite on va piocher aléatoirement une valeur dans chacun des tableaux et mettre à jour les valeur de apple.position

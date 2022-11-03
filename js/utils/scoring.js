@@ -5,6 +5,7 @@ export const scoring = {
     eaten_apples: 0,
     current_score: 0,
 
+    //* initier le score
     init: () => {
         scoring.get_best_score();
     },
