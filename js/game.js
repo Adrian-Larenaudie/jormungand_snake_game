@@ -84,14 +84,14 @@ export const game = {
                 if(game.jormungand.body_cordinates[0].x > (grid.size + grid.border)) {
                     game.jormungand.body_cordinates[0].x -= (grid.size + grid.border);
                 } else {
-                    game.jormungand.body_cordinates[0].x = (grid.size * grid.x_case_number + (grid.x_case_number * grid.border)) + grid.border; 
+                    game.jormungand.body_cordinates[0].x = (grid.size * grid.x_case_number + (grid.x_case_number * grid.border)) - (grid.size); 
                 }
                 break;
             case 'top':
                 if(game.jormungand.body_cordinates[0].y > (grid.size + grid.border)) {
                     game.jormungand.body_cordinates[0].y -= (grid.size + grid.border);
                 } else {
-                    game.jormungand.body_cordinates[0].y = (grid.size * grid.y_case_number + (grid.y_case_number * grid.border)) + grid.border;
+                    game.jormungand.body_cordinates[0].y = (grid.size * grid.y_case_number + (grid.y_case_number * grid.border)) - (grid.size);
                 }
                 break;
             case 'bottom':
