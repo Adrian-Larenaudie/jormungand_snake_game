@@ -35,15 +35,16 @@ export const game = {
         });     
     },
 
+    //* méthodep pour lancer la partie
     launch_game: () => {
-        //* si game over on clear l'interval
+        //* si game over on clear l'interval au cas ou c'est un rematch
         clearInterval(game.interval);
         //* on active les touches directionnelles ZQSD
         game.user_input();
         //* le serpent commence à se déplacer :)
         game.interval = setInterval(game.on_move, game.jormungand.mouvement_speed);
-        //* on veut une pomme au bout de 1000 milliseconde
-        apple.get(1000);       
+        //* on veut une pomme
+        apple.get(0);       
     },
 
     //* méthode pour gérer les évènements sur les touche ZQSD et modifier la valeur de la direction du serpent
@@ -86,7 +87,6 @@ export const game = {
         //* on a ensuite des if() qui permettent de gérer l'arriver du snake en bout de grille et le faire réaparaitre de l'autre côté
         switch (game.jormungand.direction) {
             case 'right':
-                //TODO DESCRIPTION DU CALCULE DES CONDITIONS:
                 //? taile de la grille x le nombre de case + le total des bordures - taille de la grille + bordure
                 if(game.jormungand.body_cordinates[0].x < (grid.size * grid.x_case_number + (grid.x_case_number * grid.border)) - (grid.size + grid.border)) {
                     game.jormungand.body_cordinates[0].x += (grid.size + grid.border);
@@ -122,8 +122,8 @@ export const game = {
             //* la pomme prend une position null
             apple.position.x = null;
             apple.position.y = null;
-            //* on demande une nouvelle pomme qui arrivera dans 500 millisecondes
-            apple.get(500);
+            //* on demande une nouvelle pomme
+            apple.get(0);
             //* on fait grandire le serpent d'une case 
             //! même principe qu'en haut on doit faire une copie et casser le lien qu'il a avec son index parent
             game.jormungand.body_cordinates.push(JSON.parse(JSON.stringify([...game.jormungand.body_cordinates.slice()]))[0]);
@@ -140,16 +140,7 @@ export const game = {
 
         //* le méthode du dessus change la valer de game.over à true
         if(game.over) {
-            //* si game over on clear l'interval
-            clearInterval(game.interval);
-            //* on met à jour le meilleure score dans le local storage
-            scoring.set_best_score();
-            //* on previens le joueur
-            alert('Game Over!');
-            //* on remet la valeur de game.over à false
-            game.over = false;
-            //* et on relance tout
-            game.init();
+           game.end_game();
         } else {
             //* sinon on redessine tout (grille, serpent et pomme)
             grid.draw();
@@ -157,6 +148,22 @@ export const game = {
             game.jormungand.draw();     
         }
               
+    },
+
+    //* les instructions lancé si la partie est perdue
+    end_game: () => {
+        //* si game over on clear l'interval
+        clearInterval(game.interval);
+        //* on met à jour le meilleure score dans le local storage
+        scoring.set_best_score();
+        //* on previens le joueur
+        document.querySelector('.modal_title').textContent = 'Game Over!';
+        //* on lui indique le score qu'il a fait
+        document.querySelector('.end_game_score').textContent = 'score: ' + scoring.end_game_score;
+        //* on remet la valeur de game.over à false
+        game.over = false;
+        //* et on relance tout
+        game.init();
     },
 
     //* méthode qui vérifie si le serpent se mort la queue

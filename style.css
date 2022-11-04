@@ -30,7 +30,6 @@ p span {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     visibility: visible;
     position: absolute;
     left: 0;
@@ -53,4 +52,17 @@ p span {
 .launch_button:hover {
     transition: 0.1s;
     transform: scale(1.02);
+}
+
+.modal_title {
+    margin-top: 10rem;
+    font-size: 6rem;
+    color: white;
+    text-shadow: 4px 1px 18px rgba(0,0,0,0.81);
+}
+
+.end_game_score {
+    font-size: 1.5rem;
+    color: white;
+    text-shadow: 4px 1px 18px rgba(0,0,0,0.81);
 }

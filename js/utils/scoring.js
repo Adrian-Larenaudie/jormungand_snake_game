@@ -4,6 +4,7 @@ export const scoring = {
     eaten_apples_displayer: document.querySelector('.eaten_apples_value'),
     eaten_apples: 0,
     current_score: 0,
+    end_game_score: 0,
 
     //* initier le score
     init: () => {
@@ -26,6 +27,7 @@ export const scoring = {
         } else {
             localStorage.setItem("best_score", scoring.current_score);
         }
+        scoring.end_game_score = scoring.current_score;
         scoring.current_score = 0;
         scoring.eaten_apples = 0;
         scoring.current_score_displayer.textContent = 0;
