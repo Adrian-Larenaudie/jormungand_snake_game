@@ -2,6 +2,7 @@ import { grid } from './utils/grid.js';
 import { Snake } from './models/Snake.js';
 import { apple } from './utils/apple.js';
 import { scoring } from './utils/scoring.js';
+import { song } from './utils/song.js';
 
 export const game = {
     
@@ -122,6 +123,8 @@ export const game = {
             //* la pomme prend une position null
             apple.position.x = null;
             apple.position.y = null;
+            //* on jou un bruit de pomme croqué
+            song.eaten_apple();
             //* on demande une nouvelle pomme
             apple.get(0);
             //* on fait grandire le serpent d'une case 
