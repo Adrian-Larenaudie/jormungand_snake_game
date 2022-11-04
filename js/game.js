@@ -11,19 +11,33 @@ export const game = {
     jormungand: null,
     //* la propriété qui va recevoir le setinterval
     interval: null,
+    //* la boutton de lancement de partie
+    button: document.querySelector('.launch_button'),
+    //* la boite modal pour modifier son style
+    modal: document.querySelector('.modal'),
 
     //* pour initier la partie
-    init: () => {
+    init: () => {       
         //* on va afficher le meilleure score si il y en a un
         scoring.init();
         //* on dessine la grille de jeu
-        grid.draw();  
-        //* pour le moment un msg alert pour indiquer que la partie va débuter
-        alert("Commencer la partie")
+        grid.draw();
         //* on instancie notre serpent: petite référence à la mtythologie scandinave <3
         game.jormungand = new Snake;
         //* on dessine le serpent
         game.jormungand.draw();  
+        //* la modal est par défaut à visible
+        game.modal.style.visibility = 'visible';
+        //* évènement clique pour lancer la partie 
+        game.button.addEventListener('click', (event) => {
+            game.modal.style.visibility = 'hidden';
+            game.launch_game();
+        });     
+    },
+
+    launch_game: () => {
+        //* si game over on clear l'interval
+        clearInterval(game.interval);
         //* on active les touches directionnelles ZQSD
         game.user_input();
         //* le serpent commence à se déplacer :)
