@@ -1,5 +1,6 @@
 body {
     background-color: #1b1b1b;
+    margin: 0;
 }
 
 main {
@@ -8,6 +9,7 @@ main {
     align-items: center;
     margin: auto;
     width: 80%;
+    position: relative;
 }
 
 .title, .score {
@@ -26,7 +28,7 @@ p span {
     padding-right: 3rem;
 }
 
-.modal {
+.modal, .modal_pause {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -40,6 +42,10 @@ p span {
     z-index: 42;
     background-color:rgba(0, 0, 0, 0.8);;
   }
+
+.modal_pause {
+    visibility: hidden;
+}
 
 .launch_button {
     cursor: pointer;
@@ -82,4 +88,20 @@ p span {
 
 .song_off {
     display: none;
+}
+
+.side_how_to_play_panel {
+    color: white;
+    position: absolute;
+    top: 5rem;
+    left: 0;
+    z-index: 43;
+    border: solid 2px white;
+    padding: 1rem;
+    border-radius: 0.2rem;
+}
+
+.side_how_to_play_panel h3, .side_how_to_play_panel p {
+    margin: 0;
+    margin: 0.5rem;
 }

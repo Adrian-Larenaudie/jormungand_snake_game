@@ -5,7 +5,7 @@ import { scoring } from './utils/scoring.js';
 import { song } from './utils/song.js';
 
 export const game = {
-    
+    /* ------------------ PROPRIETES ---------------- */
     //* la propriété qui définit la fin de la partie
     over: false,
     //* la propriété qui va recevoir l'instance du serpent
@@ -14,9 +14,17 @@ export const game = {
     interval: null,
     //* la boutton de lancement de partie
     button: document.querySelector('.launch_button'),
-    //* la boite modal pour modifier son style
+    //* la boite modal affichée en début et fin de partie
     modal: document.querySelector('.modal'),
+    //* la modal affichée lors de la pause
+    pause_modal: document.querySelector('.modal_pause'),
+    //* le booléen pour activer désactiver la pause
+    pause: false,
+    //* sauvegarde de la dernière direction avant la pause par défaut right
+    last_direction: "right",
+    /* ------------------ PROPRIETES ---------------- */
 
+    /* ------------------- METHODES ----------------- */
     //* pour initier la partie
     init: () => {       
         song.init();
@@ -39,6 +47,8 @@ export const game = {
 
     //* méthodep pour lancer la partie
     launch_game: () => {
+        //* on remet la valeur de game.over à false
+        game.over = false;
         //* si game over on clear l'interval au cas ou c'est un rematch
         clearInterval(game.interval);
         //* on active les touches directionnelles ZQSD
@@ -51,31 +61,63 @@ export const game = {
 
     //* méthode pour gérer les évènements sur les touche ZQSD et modifier la valeur de la direction du serpent
     user_input: () => {
-        document.addEventListener('keypress', (event) => {
+        document.addEventListener('keypress', game.user_input_handler, true);
+    },
+
+    user_input_handler: (event) => {
+        //* si le jeu n'est pas finit on permet les évènement
+        if(!game.over) {
             switch (event.key) {
                 case "z":
                     //? empêcher de faire demi tour avec cette condition
-                    if(game.jormungand.direction != "bottom") {
+                    if(game.jormungand.direction != "bottom" && !game.pause) {
                         game.jormungand.direction = "top";
+                        game.last_direction = "top";
                     }
                     break;
                 case "q":
-                    if(game.jormungand.direction != "right") {
+                    if(game.jormungand.direction != "right" && !game.pause) {
                         game.jormungand.direction =  "left";
+                        game.last_direction = "left";
                     }
                     break;
                 case "s":
-                    if(game.jormungand.direction != "top") {
+                    if(game.jormungand.direction != "top" && !game.pause) {
                         game.jormungand.direction =  "bottom";
+                        game.last_direction = "bottom";
                     }
                     break;
                 case "d":
-                    if(game.jormungand.direction != "left") {
+                    if(game.jormungand.direction != "left" && !game.pause) {
                         game.jormungand.direction =  "right";
+                        game.last_direction = "right";
                     }
                     break;
-            };     
-        });
+                case " ":
+                    if(game.pause) {
+                        //* quand on enlève la pause on relance l'interval
+                        game.interval = setInterval(game.on_move, game.jormungand.mouvement_speed);
+                        //* on cache la modal de pause
+                        game.pause_modal.style.visibility = "hidden";
+                        //* le booléen de la pause passe à false
+                        game.pause = false;
+                        //* pour que notre serpent aille dans le bon sens on récupère la valeur sauvegardée lors du dernier changement de direction
+                        game.jormungand.direction = game.last_direction;
+                    } else {
+                        //* on affiche la modal de pause
+                        game.pause_modal.style.visibility = "visible";
+                        //* pour la pause on stop l'interval
+                        clearInterval(game.interval);
+                        //* le booléen de la pause passe à true
+                        game.pause = true;
+                    }        
+                break;
+            };
+        }     
+    },
+
+    remove_user_input: () => {
+        document.removeEventListener('keypress', game.user_input_handler, true);
     },
    
     //* méthode qui permet de gérer le mouvement du serpent
@@ -138,11 +180,10 @@ export const game = {
 
         //* on met à jour les positions de chaque parties du corps
         game.jormungand.update_cordinates(last_head_position);
-
         //* on va vérifier si le serpent se mort la queue (si la position de la tête est égal à la position d'une partie de son corps)
         game.check_if_bit_himself();
 
-        //* le méthode du dessus change la valer de game.over à true
+        //* le méthode du dessus change la valeur de game.over à true
         if(game.over) {
            game.end_game();
         } else {
@@ -156,6 +197,8 @@ export const game = {
 
     //* les instructions lancé si la partie est perdue
     end_game: () => {
+        //* on désactive les user inputs
+        game.remove_user_input();
         //* si game over on clear l'interval
         clearInterval(game.interval);
         //* on met à jour le meilleure score dans le local storage
@@ -164,8 +207,6 @@ export const game = {
         document.querySelector('.modal_title').textContent = 'Game Over!';
         //* on lui indique le score qu'il a fait
         document.querySelector('.end_game_score').textContent = 'score: ' + scoring.end_game_score;
-        //* on remet la valeur de game.over à false
-        game.over = false;
         //* et on relance tout
         game.init();
     },
@@ -180,6 +221,7 @@ export const game = {
             }
         })
     }
+    /* ------------------- METHODES ----------------- */
 };
 
 //* LET'S GOO!
