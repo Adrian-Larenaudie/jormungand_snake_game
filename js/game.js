@@ -169,7 +169,7 @@ export const game = {
             //* on jou un bruit de pomme croqué
             song.eaten_apple();
             //* on demande une nouvelle pomme
-            apple.get(0);
+            apple.get(100);
             //* on fait grandire le serpent d'une case 
             //! même principe qu'en haut on doit faire une copie et casser le lien qu'il a avec son index parent
             game.jormungand.body_cordinates.push(JSON.parse(JSON.stringify([...game.jormungand.body_cordinates.slice()]))[0]);
