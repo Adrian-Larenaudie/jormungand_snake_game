@@ -37,7 +37,7 @@ p span {
     width: 100%;
     height: 100%;
     text-align: center;
-    z-index: 1000;
+    z-index: 42;
     background-color:rgba(0, 0, 0, 0.8);;
   }
 
@@ -65,4 +65,21 @@ p span {
     font-size: 1.5rem;
     color: white;
     text-shadow: 4px 1px 18px rgba(0,0,0,0.81);
+}
+
+.img_bloc {
+    z-index: 43;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+}
+
+
+.ear_img {
+    fill: white;
+    cursor: pointer;
+}
+
+.song_off {
+    display: none;
 }

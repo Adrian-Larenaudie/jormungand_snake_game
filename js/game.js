@@ -19,6 +19,7 @@ export const game = {
 
     //* pour initier la partie
     init: () => {       
+        song.init();
         //* on va afficher le meilleure score si il y en a un
         scoring.init();
         //* on dessine la grille de jeu
