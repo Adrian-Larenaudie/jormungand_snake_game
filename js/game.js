@@ -1,75 +1,57 @@
-import { grid } from './utils/grid.js';
+/* ------------------ IMPORTS ---------------- */
 import { Snake } from './models/Snake.js';
+import { grid } from './utils/grid.js';
 import { apple } from './utils/apple.js';
 import { scoring } from './utils/scoring.js';
 import { song } from './utils/song.js';
+/* ------------------ IMPORTS ---------------- */
 
 export const game = {
     /* ------------------ PROPRIETES ---------------- */
-    //* la propriété qui définit la fin de la partie
     over: false,
-    //* la propriété qui va recevoir l'instance du serpent
     jormungand: null,
-    //* la propriété qui va recevoir le setinterval
     interval: null,
-    //* la boutton de lancement de partie
     button: document.querySelector('.launch_button'),
-    //* la boite modal affichée en début et fin de partie
     modal: document.querySelector('.modal'),
-    //* la modal affichée lors de la pause
     pause_modal: document.querySelector('.modal_pause'),
-    //* le booléen pour activer désactiver la pause
     pause: false,
-    //* sauvegarde de la dernière direction avant la pause par défaut right
     last_direction: "right",
     /* ------------------ PROPRIETES ---------------- */
 
     /* ------------------- METHODES ----------------- */
-    //* pour initier la partie
     init: () => {       
         song.init();
-        //* on va afficher le meilleure score si il y en a un
         scoring.init();
-        //* on dessine la grille de jeu
         grid.draw();
-        //* on instancie notre serpent: petite référence à la mtythologie scandinave <3
         game.jormungand = new Snake;
-        //* on dessine le serpent
         game.jormungand.draw();  
-        //* la modal est par défaut à visible
-        game.modal.style.visibility = 'visible';
-        //* évènement clique pour lancer la partie 
+        game.modal.style.visibility = 'visible'; 
         game.button.addEventListener('click', (event) => {
             game.modal.style.visibility = 'hidden';
             game.launch_game();
         });     
     },
 
-    //* méthodep pour lancer la partie
     launch_game: () => {
-        //* on remet la valeur de game.over à false
         game.over = false;
-        //* si game over on clear l'interval au cas ou c'est un rematch
         clearInterval(game.interval);
-        //* on active les touches directionnelles ZQSD
         game.user_input();
-        //* le serpent commence à se déplacer :)
         game.interval = setInterval(game.on_move, game.jormungand.mouvement_speed);
-        //* on veut une pomme
         apple.get(0);       
     },
 
-    //* méthode pour gérer les évènements sur les touche ZQSD et modifier la valeur de la direction du serpent
     user_input: () => {
         document.addEventListener('keypress', game.user_input_handler, true);
     },
 
+    remove_user_input: () => {
+        document.removeEventListener('keypress', game.user_input_handler, true);
+    },
+
     user_input_handler: (event) => {
-        //* si le jeu n'est pas finit on permet les évènement
         if(!game.over) {
             switch (event.key) {
                 case "z":
-                    //? empêcher de faire demi tour avec cette condition
                     if(game.jormungand.direction != "bottom" && !game.pause) {
                         game.jormungand.direction = "top";
                         game.last_direction = "top";
@@ -95,20 +77,13 @@ export const game = {
                     break;
                 case " ":
                     if(game.pause) {
-                        //* quand on enlève la pause on relance l'interval
                         game.interval = setInterval(game.on_move, game.jormungand.mouvement_speed);
-                        //* on cache la modal de pause
                         game.pause_modal.style.visibility = "hidden";
-                        //* le booléen de la pause passe à false
                         game.pause = false;
-                        //* pour que notre serpent aille dans le bon sens on récupère la valeur sauvegardée lors du dernier changement de direction
                         game.jormungand.direction = game.last_direction;
                     } else {
-                        //* on affiche la modal de pause
                         game.pause_modal.style.visibility = "visible";
-                        //* pour la pause on stop l'interval
                         clearInterval(game.interval);
-                        //* le booléen de la pause passe à true
                         game.pause = true;
                     }        
                 break;
@@ -116,19 +91,10 @@ export const game = {
         }     
     },
 
-    remove_user_input: () => {
-        document.removeEventListener('keypress', game.user_input_handler, true);
-    },
-   
-    //* méthode qui permet de gérer le mouvement du serpent
     on_move: () => {       
-        //! ici pour éviter que la variable soit liée aux changement de l'index du tableau:
-        //! on lui accole une succession de méthode pour le détacher de ce lien
         const body_cordinates_copy = JSON.parse(JSON.stringify([...game.jormungand.body_cordinates.slice()]));
         const last_head_position = body_cordinates_copy[0];
         
-        //* le switch permet de modifier la position de la tête selon la valeur de la direction
-        //* on a ensuite des if() qui permettent de gérer l'arriver du snake en bout de grille et le faire réaparaitre de l'autre côté
         switch (game.jormungand.direction) {
             case 'right':
                 //? taile de la grille x le nombre de case + le total des bordures - taille de la grille + bordure
@@ -161,33 +127,21 @@ export const game = {
                 break;
         };
 
-        //* si la tête du serpent arrive sur la position de la pomme il doit la manger
         if(game.jormungand.body_cordinates[0].y === apple.position.y && game.jormungand.body_cordinates[0].x === apple.position.x) {
-            //* la pomme prend une position null
             apple.position.x = null;
             apple.position.y = null;
-            //* on jou un bruit de pomme croqué
             song.eaten_apple();
-            //* on demande une nouvelle pomme
             apple.get(100);
-            //* on fait grandire le serpent d'une case 
-            //! même principe qu'en haut on doit faire une copie et casser le lien qu'il a avec son index parent
             game.jormungand.body_cordinates.push(JSON.parse(JSON.stringify([...game.jormungand.body_cordinates.slice()]))[0]);
-            //* on met à jour le score
             scoring.eaten_apples++;
             scoring.update_score(game.jormungand.body_cordinates);
         };
-
-        //* on met à jour les positions de chaque parties du corps
         game.jormungand.update_cordinates(last_head_position);
-        //* on va vérifier si le serpent se mort la queue (si la position de la tête est égal à la position d'une partie de son corps)
         game.check_if_bit_himself();
 
-        //* le méthode du dessus change la valeur de game.over à true
         if(game.over) {
            game.end_game();
         } else {
-            //* sinon on redessine tout (grille, serpent et pomme)
             grid.draw();
             apple.draw();
             game.jormungand.draw();     
@@ -195,34 +149,123 @@ export const game = {
               
     },
 
-    //* les instructions lancé si la partie est perdue
-    end_game: () => {
-        //* on désactive les user inputs
-        game.remove_user_input();
-        //* si game over on clear l'interval
-        clearInterval(game.interval);
-        //* on met à jour le meilleure score dans le local storage
-        scoring.set_best_score();
-        //* on previens le joueur
-        document.querySelector('.modal_title').textContent = 'Game Over!';
-        //* on lui indique le score qu'il a fait
-        document.querySelector('.end_game_score').textContent = 'score: ' + scoring.end_game_score;
-        //* et on relance tout
-        game.init();
-    },
-
-    //* méthode qui vérifie si le serpent se mort la queue
     check_if_bit_himself: () => {
-        //* ici on parcourt les parties du serpent
         game.jormungand.body_cordinates.forEach((body_part, index) => {
-            //* si la partie courante n'est pas la tête et que sa position est strctement égal à la position de la tête la partie est perdu
             if(index != 0 && body_part.x === game.jormungand.body_cordinates[0].x && body_part.y === game.jormungand.body_cordinates[0].y) {
                 game.over = true;
             }
         })
-    }
+    },
+
+    end_game: () => {
+        game.remove_user_input();
+        clearInterval(game.interval);
+        scoring.set_best_score();
+        document.querySelector('.modal_title').textContent = 'Game Over!';
+        document.querySelector('.end_game_score').textContent = 'score: ' + scoring.end_game_score;
+        game.init();
+    },
     /* ------------------- METHODES ----------------- */
 };
 
 //* LET'S GOO!
 game.init();
+
+/*
+*DOCUMENTATION FR
+
+game.js est le fichier principale du jeu.
+
+On retrouve une partie importation des différents objets contenus dans différents fichiers:
+- Snake.js qui est une classe et qui va permettre d'instancier le serpent
+- grid.js qui est le fichier permettant de générer une grille et de la dessiner dans la balise canvas
+- apple.js qui va nous permettre de générer une pomme sur une position valide sur la grille de jeu (pas sur le serpent)
+- socring.js qui nous permettre de gérer tout le système de score du jeu: nb de pomme mangée, nb de point marqué, meilleure score en locale storage
+- song.js qui nous permet de jouer un son lors du croquage de pomme, d'activer désactiver ce son à l'aide d'un bouton sur le document
+
+Ensuite nous avons la partie qui contient notre objet game dans lequel on retrouve plusieurs propriétés et méthodes.
+
+Les propriétés vont nous permettre de déterminer un état et les méthodes de modifier cet état.
+
+*DESCRIPTION DES PROPRIETES: (8)
+
+- over, booléen qui détermine si la partie est terminée ou non
+- jormungand, qui va recevoir l'instance du serpent
+- interval, qui va recevoir le setInterval du jeu (permet de gérer l'avancement du serpent tout les x temps en millisecondes)
+- button, reçoit l'élément du DOM qui permet de lancé la partie lors du clique sur ce dernier
+- modal, reçoit l'élément du DOM qui contient la boite modale affiché en début et fin de partie
+- pause_modal, reçoit l'élément du DOM qui contient la boite modale affichée lors d'une pause
+- pause, booléen qui définit si la pause est activée ou non
+- last_direction, permet de stocker la valeur de la dernière direction du serpent
+
+*DESCRIPTION DES METHODES: (8)
+
+- init(), permet d'initialiser une partie, on va y appeler plusieurs méthodes et effectuer différentes actions:
+    - initialisation du son
+    - initialisation du score
+    - instanciation du serpent 
+    - dessin de la grille de jeu 
+    - dessin du serpent 
+    - ajout de l'évènement clique sur le bouton de lancement de partie: au clique la modal disparait et on joue la méthode launch_game();
+
+- launch_game(), permet de lancer la partie, détailles des instructions:
+    - over prend la valeur false (par défaut à false dans le cas d'un rematch il est à true)
+    - on clear l'interval pour éviter de ce retrouver avec plusieurs interval actifs (là aussi c'est pour le cas du rematch)
+    - on active les inputs utilisateur avec la méthode user_input() il s'agit de l'évènement keypress
+    - on stock l'interval dans la propriété interval, 1er param = la méthode on_move(), 2eme param = la vitesse du serpent
+    - on demande à notre objet apple de nous générer une pomme
+
+- user_input(), permet d'activer les inputs de l'utilisateur à l'aide de l'évènement keypress et du hanlder user_input_handler()
+
+- remove_user_input(), permet de désactiver les inputs de l'utilisateur en prenant en param le handler user_input_handler()
+
+- user_input_handler(), est le handler sur les inputs utilisateurs:
+    - permet de modifier la direction serpent
+    - une condition s'assure que le jeu n'est pas en pause pour ne pas enregistrer une direction de cette état
+    - un switch permet de faire quelque chose en fonction de la touche appuyée par l'utilisateur
+    - dans le cas Z Q S ou D on modifie la direction du serpent et on l'enregistre dans last_direction, sauf si le serpent risque de faire demi tour
+    - dans le cas de " ":
+        - si le jeu est en pause:
+            - dans la propriété interval on remet le setInterval avec la méthode on_move() en 1er param, et la vitesse du snake en 2eme param
+            - on cache la modal de pause
+            - on passe la propriété pause à false
+        - si le jeu n'est pas en pause
+            - on affiche la modal de pause
+            - on clear l'interval
+            - on passe la propriété pause à true
+
+- on_move(), la méthode la plus complexe du projet:
+    - on va créer une copie profonde du tableau contenant les coordonnées du serpent
+    - on stock dans une constante la position de la tête du serpent
+    - un switch qui permet de vérifier dans quelle direction on se trouve
+        - en fonction de la direction on permet à la tête du serpent de se déplacer d'une case vers l'avant
+        - si on arrive en bout de grille le serpent se téléporte sur le coté opposé de la grille 
+    - une condition permet de vérifier si la tête du serpent est sur la même position que la pomme générée
+        - si c'est le cas le serpent grandit d'une case
+        - la position de la pomme est passée à null
+        - les positions d'une nouvelle pomme sont générées
+        - on joue le son 
+        - on met à jour le score
+    - ensuite on met à jour les positions du serpent derrière la tête à l'aide de la méthode update_cordinates()
+    - puis on vérifie si le serpent se mord la queue à l'aide de la méthode check_if_bit_himself() cette méthode va modifier l'état over 
+    - une condition va vérifier si l'état over est true ou false
+        - si c'est true on va jouer la méthode end_game() qui mettra fin à la partie
+        - si c'est false:
+            - on redessine la grille
+            - on redessine la pomme à l'aide des positions générées auparavant
+            - puis le serpent est redessiné également
+
+- check_if_bit_himself(), permet de vérifier si la tête du serpent se trouve sur l'une des position du corps du serpent
+    - pour cela on parcourt le tableau des position du corps du serpent 
+    - une condition vérifie si la position de la partie du corps parcourue est strictement égal à la position de la tête saud si il s'agot de la tête
+        - si c'est le cas on passe la propriété over à true
+        - sinon on ne fait rien
+
+- end_game(), permet de mettre fin à la partie lorsque cette méthode est jouée:
+    - on commence par retirer les évènement keypress
+    - on clear l'interval on_move()
+    - on joue la méthode qui met à jour le meilleure score si il y en a un
+    - on modifie le titre de la modale par Game Over!
+    - on affiche le score de la partie terminé dans une balise <p> contenue dans la modale
+    - on rejout la méthode game.init() pour préparer la prochaine partie
+*/
