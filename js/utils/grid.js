@@ -10,6 +10,8 @@ export const grid = {
     border: 1,
     //* on va stocker les coordonées de chacunes des position dans un tableau
     all_positions: [],
+    //*
+    is_all_positions_set: false,
 
     //* cette méthoden nous permet de dessiner la grille
     draw: () => {
@@ -36,9 +38,13 @@ export const grid = {
                 //? - 2eme param: idem, on va simplement remplacer les valeurs x par les valeurs y: ce paramètre change qd on a finit d'afficher une ligne
                 //? - 3eme et 4eme param: la taille de la boxe, sachant qu'elle est carrée la valeur est la même pour ces deux paramètres
                 ctx.fillRect(grid.border + x + (x * grid.size), grid.border + y + (y * grid.size), grid.size, grid.size);
-                //* on stocke la position courante dans un tableau
-                grid.all_positions.push({x:  grid.border + x + (x * grid.size), y: grid.border + y + (y * grid.size)})
+                //* si on a pas déjà rempli notre tableau on va pouvoir ajouter la position courante dans le tableau des positions
+                if(!grid.is_all_positions_set) {
+                    //* on stocke la position courante dans un tableau
+                    grid.all_positions.push({x:  grid.border + x + (x * grid.size), y: grid.border + y + (y * grid.size)})
+                }
             };
         };
-    }
+        grid.is_all_positions_set = true;
+    },
 };
