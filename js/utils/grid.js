@@ -48,3 +48,9 @@ export const grid = {
         grid.is_all_positions_set = true;
     },
 };
+
+/*
+*DOCUMENTATION FR
+*DESCRIPTION DES PROPRIETES:
+*DESCRIPTION DES METHODES:
+*/

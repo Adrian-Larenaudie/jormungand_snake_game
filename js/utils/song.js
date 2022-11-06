@@ -33,3 +33,9 @@ export const song = {
     },
 
 };
+
+/*
+*DOCUMENTATION FR
+*DESCRIPTION DES PROPRIETES:
+*DESCRIPTION DES METHODES:
+*/

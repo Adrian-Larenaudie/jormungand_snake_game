@@ -40,4 +40,10 @@ export const scoring = {
         scoring.current_score_displayer.textContent = scoring.current_score;
         scoring.eaten_apples_displayer.textContent = scoring.eaten_apples;
     },
-}
+};
+
+/*
+*DOCUMENTATION FR
+*DESCRIPTION DES PROPRIETES:
+*DESCRIPTION DES METHODES:
+*/

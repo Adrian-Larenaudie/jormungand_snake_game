@@ -71,3 +71,9 @@ export const apple = {
         }   
     },
 };
+
+/*
+*DOCUMENTATION FR
+*DESCRIPTION DES PROPRIETES:
+*DESCRIPTION DES METHODES:
+*/
