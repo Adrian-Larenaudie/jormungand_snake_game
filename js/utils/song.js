@@ -1,8 +1,11 @@
 export const song = {
+    /* ------------------ PROPRIETES ---------------- */
     on_off: 1,
     on_svg: document.querySelector('.song_on'),
     off_svg: document.querySelector('.song_off'),
+    /* ------------------ PROPRIETES ---------------- */
 
+    /* ------------------- METHODES ----------------- */
     init: () => {
         song.handle_off_svg();
         song.handle_on_svg();
@@ -31,11 +34,19 @@ export const song = {
             song.on_off = 1;
         })
     },
+    /* ------------------- METHODES ----------------- */
 
 };
 
 /*
 *DOCUMENTATION FR
-*DESCRIPTION DES PROPRIETES:
-*DESCRIPTION DES METHODES:
+*DESCRIPTION DES PROPRIETES: (3)
+-
+-
+-
+*DESCRIPTION DES METHODES: (4)
+-
+-
+-
+-
 */

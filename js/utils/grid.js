@@ -1,19 +1,15 @@
-//* Appeler cette fonction permet de créer une grille dans la balise <canvas> du fichier index.html lié
-export const grid = {
-    //* nombre de case horizontale
-    x_case_number: 20,
-    //* nombre de case verticale
-    y_case_number: 15,
-    //* taille des cases en pixels (carrées)
-    size: 30,
-    //* bordure en pixels du canvas
-    border: 1,
-    //* on va stocker les coordonées de chacunes des position dans un tableau
-    all_positions: [],
-    //*
-    is_all_positions_set: false,
 
-    //* cette méthoden nous permet de dessiner la grille
+export const grid = {
+    /* ------------------ PROPRIETES ---------------- */
+    x_case_number: 20,
+    y_case_number: 15,
+    size: 30,
+    border: 1,
+    all_positions: [],
+    is_all_positions_set: false,
+    /* ------------------ PROPRIETES ---------------- */
+
+    /* ------------------- METHODES ----------------- */
     draw: () => {
         //* balise canvas
         const canvas = document.querySelector('canvas');
@@ -47,10 +43,18 @@ export const grid = {
         };
         grid.is_all_positions_set = true;
     },
+    /* ------------------- METHODES ----------------- */
 };
 
 /*
 *DOCUMENTATION FR
-*DESCRIPTION DES PROPRIETES:
-*DESCRIPTION DES METHODES:
+*DESCRIPTION DES PROPRIETES: (6)
+-
+-
+-
+-
+-
+-
+*DESCRIPTION DES METHODES: (1)
+-
 */

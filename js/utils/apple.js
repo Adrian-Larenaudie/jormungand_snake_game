@@ -1,29 +1,25 @@
-//* pour récupérer notre serpent on a besoin d'importer la fichier ou il est instancié
+/* ------------------ IMPORTS ---------------- */
 import { game } from "../game.js";
-import { Snake } from "../models/Snake.js";
-//* on a également besoin des informations concernant les dimension de la grille
 import { grid } from './grid.js';
+/* ------------------ IMPORTS ---------------- */
 
-import { scoring } from './scoring.js';
-
-//* ce fichier gère la partie création de pomme 
 export const apple = {
-    //* plusieurs propriétés pour définir notre pomme
+    /* ------------------ PROPRIETES ---------------- */
     size: grid.size,
     color: "#dc143c",
     position: {x: null, y: null},
     x_case_number: grid.x_case_number,
     y_case_number: grid.y_case_number,
     border: grid.border,
+    /* ------------------ PROPRIETES ---------------- */
 
-    //* méthode qui permet de lancer la génération d'une pomme au bout d'un temps passé en paramètre
+    /* ------------------- METHODES ----------------- */
     get: (timer) => {
         setTimeout(() => {
             apple.get_random_position(); 
         }, timer);
     },
 
-    //* la méthode qui nous permet de récupérer une position aléatoire pour la pomme
     get_random_position: () => {
         //* on commence par récupérer le tableau des position du serpent dans une constante en prennant soin créer une copie profonde 
         const body_cordinates =  JSON.parse(JSON.stringify([...game.jormungand.body_cordinates.slice()]));
@@ -55,25 +51,30 @@ export const apple = {
         apple.draw();
     },
 
-    //* méthode qui permet de dessiner la pomme
     draw: () => {
         const canvas = document.querySelector('canvas');
-        //* on donne un context au canvas
         const ctx = canvas.getContext('2d');
-        //* on donne une couleur verte à notre partie du corps courante
         ctx.fillStyle = apple.color;
-        //* on vérifie que la 1ere pomme a bien été créee
         if(apple.position.x != null && apple.position.y != null) {
             ctx.fillRect( apple.position.x, apple.position.y, apple.size, apple.size);
-        //* sinon on dessine une pomme intouchable
         } else {
             ctx.fillRect( 0, 0, 0, 0);
         }   
     },
+    /* ------------------- METHODES ----------------- */
 };
 
 /*
 *DOCUMENTATION FR
-*DESCRIPTION DES PROPRIETES:
-*DESCRIPTION DES METHODES:
+*DESCRIPTION DES PROPRIETES: (6)
+-
+-
+-
+-
+-
+-
+*DESCRIPTION DES METHODES: (3)
+-
+-
+-
 */
