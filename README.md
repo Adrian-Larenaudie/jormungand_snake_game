@@ -1,45 +1,23 @@
-## Jormungand 
+## Jormungand
 
-**1ere étape = créer une grille dans la balise canvas à l'aide d'une fonction: make_grid()** OK
+**C'est un jeu snake classique codé en JavaScript vanilla.**
 
-**Notes:** concernant les imports exports:  
-    - les navigateur ne supportent pas la syntaxe des require() de node js  
-    - pour gérer ses imports et exports, on utilisera la syntaxe ES6   
-    - mots clef: ``import from export default``  
-    - documentation: https://bobbyhadz.com/blog/javascript-referenceerror-require-is-not-defined  
+Mis en ligne à l'aide de Surge à cette adresse: **https://jormungand-game-adrian.surge.sh**  
 
-**2eme étape = créer la tête du serpent:** ok
-- elle avance vers l'avant de une case toutes les 200 millisecondes ok
-- elle ne peut pas sortir de la grille ok
-- elle peut changer de direction à l'aide des touches ZQSD ok
+Le jeu utilise la balise HTML canvas, à chaque modification l'ensemble du jeu est redessiné ce qui donne l'illusion du mouvement.  
 
-**3eme étape = crée le corps du serpent:** ok
-- créer un corps au serpent, en comptant la tête par défaut 4 cases ok
-- les cases body doivent se suivre lors des déplacements de la tête ok
-- il n'ai désormais plus possible d'être bloqué par une bordure à la place la tête doit se retrouver de l'autre coté de la grille ok
+Les règles de mon snake sont simples et reprennent celles du jeu original avec peut être quelques variantes:  
+- au départ le serpent fais 4 cases de long
+- il se déplace continnuellement
+- une pomme est généré aléatoirement
+- si la tête du serpent arrive sur la pomme la pomme est mangée par le serpent et celui ci gandit d'une case
+- si le serpent se mord la queue la partie est terminée
+- il y a un système de score ainsi que le nombre de pomme mangée qui sont affichés à l'écran
+- il y a une sauvegarde du meilleure score faite dans le local storage
+- un bruit de pomme croquée est joué lorsqu'une pomme est mangée, le son peut être coupé par l'utilisateur à l'aide d'un bouton
+- un panneau informatif indique les touches utilisables en jeu
+- ZQSD pour changer la direction
+- barre espace pour mettre le jeu en pause
 
-**4eme étape = les pommes:** OK
-- faire apparaitre une pomme à un emplacement aléatoire de la grille au bout de 2000 milliseconde après le début de la partie ok
-- la pomme ne doit pas apparaitre sur le serpent ok
-- la pomme est mangée par le serpent si sa tête arrive sur la case de la pomme ok
-- une fois qu'une pomme est mangée le serpent grandit d'une case ok
-
-**5eme étape = gérer les conditions de fin de partie + scoring system** WIP
-- faire en sorte que lorsque le serpent se mort la queue un msg s'affiche la partie est perdu on relance le game
-- ajouter un système de scoring visible en cours de partie:
-  - une pomme manger rapporte 1point multiplier par le nombre de parti du serpent
-  
-**6eme étape = créer une interface de lancement de partie**
-
-**7eme étape = design**
-
-## liste des bugs à gérer:
-1. débordement de une case (le serpent peu se déplacer d'une case invisible autour de la grille)
-2. parfois la pomme apparait devant la tête du serpent (génère une mauvaise expérience de jeu)
-
-## liste des améliorations à apporter:
-1. les cases sont trop grosse les réduires à 30pixels
-2. la grille est un peu grande également modifier la taille 
-3. choisir une option entre autoriser le serpent à passer sur une bordure et se retrouver de l'autre coté sur la grille de jeu ou faire perdre la partie si la tête touche une bordure
-4. améliorer l'interface de lancement et de fin de partie
-5. ajouter le système de scoring affiché en permanence
+### **Pourquoi Jormungand ?**
+J'adore la mythologie nordique <3
