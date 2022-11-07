@@ -268,4 +268,24 @@ Les propriétés vont nous permettre de déterminer un état et les méthodes de
     - on modifie le titre de la modale par Game Over!
     - on affiche le score de la partie terminé dans une balise <p> contenue dans la modale
     - on rejout la méthode game.init() pour préparer la prochaine partie
+
+*REMARQUES:
+1. on peut retrouver ce genre d'écriture ligne 95 par exemple:
+const body_cordinates_copy = JSON.parse(JSON.stringify([...game.jormungand.body_cordinates.slice()]));
+lors du développement, j'ai du faire face à un fonctionnemant de JavaScript que je ne connaissais pas.
+mon objectif était, de stocker la valeur de l'index 0 du tableau body_cordinates à un instant T et d'exploiter cette valeur plus tard dans le code.
+je souhaitais faire cela puisque le tableau est voué à changer tout au long de du déroulement du code, 
+il fallait donc que j'effectue une sorte de sauvegarde de la donnée qui m'interesse.
+
+le comportement que j'ai remarqué est le suivant: JavaScript va lié les deux tableaux. 
+si je modifie la valeur de l'index 0 du 1er tableau la valeur de l'index 0 du second sera modifiée également.
+dans ce cas l'intéret de sauvegarder ma valeur à un instant T ne sert donc à rien puisqu'elle changera dans tous les cas.
+
+j'ai cependant trouvé une solution qui permet de "casser le lien" entre le 1er tableau et le second tableau, 
+il est possible à l'aide de différentes méthodes natives de faire ce qu'on appelle une copie profonde d'une variable:
+[...] le spread operator
+JSON.stringify() la méthode stringify
+.slice() et la méthode slice
+j'applique donc ces trois méthodes sur mon tableau avant d'en effectuer une copie afin de m'assurer qu'ils ne soient plus liés entre eux.
+
 */
