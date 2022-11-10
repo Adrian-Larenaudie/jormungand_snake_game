@@ -2,14 +2,14 @@
 
 **C'est un jeu snake classique codé en JavaScript vanilla.**
 
-Mis en ligne à l'aide de Surge à cette adresse: **https://jormungand-game-adrian.surge.sh**  
+En ligne avec Surge ici: **https://jormungand-game-adrian.surge.sh**  
 
 Le jeu utilise la balise HTML canvas, à chaque modification l'ensemble du jeu est redessiné ce qui donne l'illusion du mouvement.  
 
-Les règles de mon snake sont simples et reprennent celles du jeu original avec peut être quelques variantes:  
-- au départ le serpent fais 4 cases de long
+Les règles de mon snake sont simples et reprennent celles du jeu original avec sans doute quelques variations:  
+- au départ le serpent fait 4 cases de long
 - il se déplace continnuellement
-- une pomme est généré aléatoirement
+- une pomme est générée aléatoirement
 - si la tête du serpent arrive sur la pomme la pomme est mangée par le serpent et celui ci gandit d'une case
 - si le serpent se mord la queue la partie est terminée
 - il y a un système de score ainsi que le nombre de pomme mangée qui sont affichés à l'écran
@@ -18,6 +18,3 @@ Les règles de mon snake sont simples et reprennent celles du jeu original avec 
 - un panneau informatif indique les touches utilisables en jeu
 - ZQSD pour changer la direction
 - barre espace pour mettre le jeu en pause
-
-### **Pourquoi Jormungand ?**
-J'adore la mythologie nordique <3
