@@ -8,6 +8,7 @@ import { song } from './utils/song.js';
 
 export const game = {
     /* ------------------ PROPRIETES ---------------- */
+    running: false,
     over: false,
     jormungand: null,
     interval: null,
@@ -19,7 +20,8 @@ export const game = {
     /* ------------------ PROPRIETES ---------------- */
 
     /* ------------------- METHODES ----------------- */
-    init: () => {       
+    init: () => {   
+        game.running = false,    
         song.init();
         scoring.init();
         grid.draw();
@@ -27,6 +29,7 @@ export const game = {
         game.jormungand.draw();  
         game.modal.style.visibility = 'visible'; 
         game.button.addEventListener('click', (event) => {
+            game.running = true,  
             game.modal.style.visibility = 'hidden';
             game.launch_game();
         });     
@@ -76,16 +79,7 @@ export const game = {
                     }
                     break;
                 case " ":
-                    if(game.pause) {
-                        game.interval = setInterval(game.on_move, game.jormungand.mouvement_speed);
-                        game.pause_modal.style.visibility = "hidden";
-                        game.pause = false;
-                        game.jormungand.direction = game.last_direction;
-                    } else {
-                        game.pause_modal.style.visibility = "visible";
-                        clearInterval(game.interval);
-                        game.pause = true;
-                    }        
+                    game.manage_pause(false);
                 break;
             };
         }     
@@ -165,11 +159,32 @@ export const game = {
         document.querySelector('.end_game_score').textContent = 'score: ' + scoring.end_game_score;
         game.init();
     },
+
+    on_visibility_change_page_event_handler: () => {
+        document.addEventListener("visibilitychange", (event) => {
+            game.manage_pause(true);
+        });
+    },
+
+    manage_pause: (from_on_visible_event) => {
+        if(game.pause && game.running && !from_on_visible_event) {
+            game.interval = setInterval(game.on_move, game.jormungand.mouvement_speed);
+            game.pause_modal.style.visibility = "hidden";
+            game.pause = false;
+            game.jormungand.direction = game.last_direction;
+        } else if(!game.pause && game.running) {
+            game.pause_modal.style.visibility = "visible";
+            clearInterval(game.interval);
+            game.pause = true;
+        }        
+    },
     /* ------------------- METHODES ----------------- */
 };
 
 //* LET'S GOO!
 game.init();
+// cet event est appelé qu'une seul fois et détectera le changement de page pour activer une pause si le jeu est lancé
+game.on_visibility_change_page_event_handler();
 
 /*
 *DOCUMENTATION FR

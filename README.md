@@ -18,3 +18,12 @@ Les règles de mon snake sont simples et reprennent celles du jeu original avec 
 - un panneau informatif indique les touches utilisables en jeu
 - ZQSD pour changer la direction
 - barre espace pour mettre le jeu en pause
+
+## TODO
+
+-> ajouter la doc sur la nouvelle feature de la pause:
+    -> la propriété game.running
+    -> la méthode game.manage_pause()
+    -> la méthode game.on_visibility_change_page_event_handler()
+
+-> rendre l'application responsive
