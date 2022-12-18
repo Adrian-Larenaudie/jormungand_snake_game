@@ -1,5 +1,6 @@
 /* ------------------ IMPORTS ---------------- */
 import { Snake } from './models/Snake.js';
+import { index } from './index.js';
 import { grid } from './utils/grid.js';
 import { apple } from './utils/apple.js';
 import { scoring } from './utils/scoring.js';
@@ -79,7 +80,7 @@ export const game = {
                     }
                     break;
                 case " ":
-                    game.manage_pause(false);
+                    index.manage_pause(false);
                 break;
             };
         }     
@@ -159,32 +160,8 @@ export const game = {
         document.querySelector('.end_game_score').textContent = 'score: ' + scoring.end_game_score;
         game.init();
     },
-
-    on_visibility_change_page_event_handler: () => {
-        document.addEventListener("visibilitychange", (event) => {
-            game.manage_pause(true);
-        });
-    },
-
-    manage_pause: (from_on_visible_event) => {
-        if(game.pause && game.running && !from_on_visible_event) {
-            game.interval = setInterval(game.on_move, game.jormungand.mouvement_speed);
-            game.pause_modal.style.visibility = "hidden";
-            game.pause = false;
-            game.jormungand.direction = game.last_direction;
-        } else if(!game.pause && game.running) {
-            game.pause_modal.style.visibility = "visible";
-            clearInterval(game.interval);
-            game.pause = true;
-        }        
-    },
     /* ------------------- METHODES ----------------- */
 };
-
-//* LET'S GOO!
-game.init();
-// cet event est appelé qu'une seul fois et détectera le changement de page pour activer une pause si le jeu est lancé
-game.on_visibility_change_page_event_handler();
 
 /*
 *DOCUMENTATION FR
@@ -285,7 +262,7 @@ Les propriétés vont nous permettre de déterminer un état et les méthodes de
     - on rejout la méthode game.init() pour préparer la prochaine partie
 
 *REMARQUES:
-1. on peut retrouver ce genre d'écriture ligne 95 par exemple:
+1. on peut retrouver ce genre d'écriture ligne 95:
 const body_cordinates_copy = JSON.parse(JSON.stringify([...game.jormungand.body_cordinates.slice()]));
 lors du développement, j'ai du faire face à un fonctionnemant de JavaScript que je ne connaissais pas.
 mon objectif était, de stocker la valeur de l'index 0 du tableau body_cordinates à un instant T et d'exploiter cette valeur plus tard dans le code.

@@ -1,6 +1,7 @@
 body {
     background-color: #1b1b1b;
     margin: 0;
+    overflow: hidden;
 }
 
 main {
@@ -9,11 +10,17 @@ main {
     align-items: center;
     margin: auto;
     width: 80%;
-    position: relative;
+}
+
+.screen_not_supported {
+    display: none;
+    color: #fff;
+    text-align: center;
 }
 
 .title, .score {
     color: white;
+    text-align: center;
 }
 
 canvas {
@@ -22,6 +29,7 @@ canvas {
 
 .score_tags {
     display: flex;
+    justify-content: center;
 }
 
 p span {
@@ -78,8 +86,8 @@ p span {
     position: absolute;
     right: 1rem;
     top: 1rem;
+    display: flex;
 }
-
 
 .ear_img {
     fill: white;
@@ -94,7 +102,7 @@ p span {
     color: white;
     position: absolute;
     top: 5rem;
-    left: 0;
+    left: 6rem;
     z-index: 43;
     border: solid 2px white;
     padding: 1rem;
@@ -104,4 +112,33 @@ p span {
 .side_how_to_play_panel h3, .side_how_to_play_panel p {
     margin: 0;
     margin: 0.5rem;
+}
+
+.info_img {
+    display: none;
+}
+
+
+@media (max-width: 1250px) {
+    .side_how_to_play_panel {
+        left: auto;
+        right: -11rem;
+        top: 4rem;
+        background: #1b1b1b;
+        transition: .7s;
+    }
+
+    .slide_animation_panel {  
+        transform: translateX(-105%);
+    } 
+
+    .info_img {
+        display: block;
+        margin-right: 1rem;
+        fill: white;
+    }
+    
+    .info_img:hover {
+        cursor: pointer;
+    }
 }
