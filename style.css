@@ -101,12 +101,15 @@ p span {
 .side_how_to_play_panel {
     color: white;
     position: absolute;
-    top: 5rem;
-    left: 6rem;
     z-index: 43;
     border: solid 2px white;
     padding: 1rem;
     border-radius: 0.2rem;
+    left: auto;
+    right: -11rem;
+    top: 4rem;
+    background: #1b1b1b;
+    transition: .7s;
 }
 
 .side_how_to_play_panel h3, .side_how_to_play_panel p {
@@ -118,27 +121,16 @@ p span {
     display: none;
 }
 
+.slide_animation_panel {  
+    transform: translateX(-105%);
+} 
 
-@media (max-width: 1250px) {
-    .side_how_to_play_panel {
-        left: auto;
-        right: -11rem;
-        top: 4rem;
-        background: #1b1b1b;
-        transition: .7s;
-    }
+.info_img {
+    display: block;
+    margin-right: 1rem;
+    fill: white;
+}
 
-    .slide_animation_panel {  
-        transform: translateX(-105%);
-    } 
-
-    .info_img {
-        display: block;
-        margin-right: 1rem;
-        fill: white;
-    }
-    
-    .info_img:hover {
-        cursor: pointer;
-    }
+.info_img:hover {
+    cursor: pointer;
 }

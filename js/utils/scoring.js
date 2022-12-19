@@ -41,31 +41,3 @@ export const scoring = {
     },
     /* ------------------- METHODES ----------------- */
 };
-
-/*
-*DOCUMENTATION FR
-
-ce fichier contient l'objet scoring qui va nous permettre de gérer toute la partie score de la partie
-afficher le score courant le nombre de pommes mangées et stockés le meilleur score en local storage
-
-*DESCRIPTION DES PROPRIETES: (6)
-- current_score_displayer, reçoit la balise pour afficher le score courant
-- best_score_displayer, reçoit la balise pour afficher le meilleur score
-- eaten_apples_displayer, reçoit la balise pour afficher le nombre de pommes qui ont été mangées jusqu'à présent
-- eaten_apples, reçoit le nombre de pommes qui ont été mangées jusqu'à présent
-- current_score, reçoit la valeur du score courant
-- end_game_score, reçoit la valeur du score une fois la partie terminer (pour l'afficher dans la modal de fin de partie)
-
-*DESCRIPTION DES METHODES: (4)
-- init(), à l'initialisation on va chercher le meilleur score
-- get_best_score(), une simple condition va vérifier si il y a un best score dans le local storage et l'attribuer à la balise correspondante
-- set_best_score(), ici on va mettre le meilleur score à jour
-    - une condition vérifie si best score est présent dans le local storage
-        - une seconde condition va vérifier si ce score est inférieur au score courant
-            - si c'est le cas on met à jour la valeur du best score en l'écrasant avec le nouveau score
-    - si il n'y a pas de best score dans le local storage
-        - on le crée avec la valeur du score de la partie qui vient d'être terminée
-    - on va réinitialiser toutes les valeurs de l'objet en les rapassant à 0
-    - et afficher le score de fin de partie dans la modale
-- update_score(), ici on va calculer le nombre de points marqués à chaque pomme mangée par le serpent et l'ajouter au score total 
-*/

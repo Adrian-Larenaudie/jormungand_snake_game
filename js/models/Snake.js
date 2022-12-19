@@ -39,36 +39,3 @@ export class Snake {
     };
      /* ------------------- METHODES ----------------- */
 };
-
-/*
-*DOCUMENTATION FR
-
-Il s'agit du fichier qui contient la classe du serpent avec ses propriétés et ses méthodes
-les propriétés permettent de définir un état et les méthodes de modifier cet état  
-
-*DESCRIPTION DES PROPRIETES: (5)
-
-- body_cordinates, un tableau qui contient les coordonnées du serpent prend une position sur la grille par defaut puis
-- colors, un petit objet qui contient les couleurs du serpent
-- body_size, prend la taille d'une case de la grille
-- direction, prend une valeur définissant la direction du serpent par défaut vers la droite "right"
-- mouvement_speed, prend une valeur numérique qui définit la vitesse du serpent en milliseconde
-
-*DESCRIPTION DES METHODES: (2)
-
-- draw(), permet de dessiner le serpent:
-    - on va parcourir toutes les coordonnées du serpent et pour chaque coordonnées on va:
-        - séléctionner la balise canvas
-        - lui deonner un contexte 2d
-        - à l'aide d'une ternaire si on se trouve à la position de la tête:
-            - dessiner la tête avec la bonne couleur
-            - sinon dessiner la partie du corps avec la bonne couleur
-
-- update_cordinates(), permet de mettre à jour les coordonnées du serpent et prend un paramètre qui est la position de la tête avant son déplacement:
-    - on va bouvler sur les coordonnées du corps mais en partant de la fin du tableau
-        - si la partie du corps parcourut est celle suivant la tête
-            - elle prend la position de la tête passée en paramètre (donc avant que la tête ne se déplace)
-        - sinon si la partie parcourut n'est pas la tête 
-            - elle prend la valeur de la position qui se trouve devant elle ici index - 1 puisque l'on parcourt le tableau à l'envers
-            (cad de la fin vers le début)
-*/

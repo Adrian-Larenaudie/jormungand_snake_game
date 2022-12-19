@@ -25,7 +25,7 @@ export const index = {
     },
     
     manage_to_small_screen_message: () => {
-        if(window.innerWidth < 800) {
+        if(window.innerWidth < 680) {
             document.querySelector('.core').style.display = "none";
             document.querySelector('.screen_not_supported').style.display = "block";
 
