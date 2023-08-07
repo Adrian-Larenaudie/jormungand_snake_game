@@ -1,6 +1,6 @@
 # CONVENTION DES COMMITS POUR CE PROJET:
 
-## **Les commits sont en anglais**
+## **Les commits sont en anglais**  
 
 ### Ils commencent par un mot clef et peuvent en contenir plusieurs  
 - DONE step x = l'étape numéro x a été réalisée  
